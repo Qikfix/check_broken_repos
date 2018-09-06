@@ -28,6 +28,7 @@ If you would like to fix, just rerun the command passing the flag `fix_repos`
 # ./check_broken_repos.sh fix_repos
 ```
 
+Note. Will be generated a great log here `/var/log/repos_check.log`
 
 - On the Sat Server will fix everything during the execution.
 - On the Capsule, after conclude this step, will be necessary sync again.
