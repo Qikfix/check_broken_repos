@@ -32,5 +32,5 @@ If you would like to fix, just rerun the command passing the flag `fix_repos`
 - On the Sat Server will fix everything during the execution.
 - On the Capsule, after conclude this step, will be necessary sync again.
 
-Todo
+TODO
   - Change the approach just to consume the API instead use foreman-rake to fix the repo issue.
