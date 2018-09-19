@@ -13,7 +13,6 @@
 
 REPO_PATH=/var/lib/pulp/published/yum/master/yum_distributor
 NO_REPOS=$(ls -1 $REPO_PATH | wc -l)
-NO_RELEVANT_REPOS=0
 BROKEN=0
 BROKEN_ORG=0
 BROKEN_RPMLINKS=0
@@ -64,11 +63,7 @@ check_repo()
 echo "$(date) INFO: Checking for broken repos..."
 
 for REPO in $(ls -1 $REPO_PATH); do
-#  echo "FIX VALUE === $FIX"
   echo "$(date) INFO: Check Repo $REPO ..."										| tee -a $LOG
-  if echo "$REPO" | grep ^INGDiBa | grep -v ^INGDiBa-cv | grep -v ^INGDiBa-ccv > /dev/null; then
-     ((NO_RELEVANT_REPOS++))
-  fi
   METADATA=$(zgrep "metadata packages" $REPO_PATH/$REPO/*/repodata/*-primary.xml.gz | cut -d \" -f2)
   PACKAGES=$(xmllint --format $REPO_PATH/$REPO/*/repodata/*-primary.xml.gz | fgrep -c "<name>" | cut -d \" -f2)
   SUBDIR=$(ls -1 $REPO_PATH/$REPO/)
@@ -114,7 +109,6 @@ done
 
 echo "###############################################"									| tee -a $LOG
 echo "$(date) Number of repos: $NO_REPOS"										| tee -a $LOG
-echo "$(date) Number of relevant repos: $NO_RELEVANT_REPOS"								| tee -a $LOG
 echo "$(date) Broken repos found: $BROKEN"										| tee -a $LOG
 echo "$(date) Broken ORIGINAL repos found: $BROKEN_ORG"									| tee -a $LOG
 echo "$(date) Broken RPM links repos found: $BROKEN_RPMLINKS"								| tee -a $LOG
